@@ -17,4 +17,15 @@ class ChirpController extends Controller
             'chirps' => $chirps,
         ]);
     }
+
+    public function store(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'message' => 'required|string|max:255',
+        ]);
+
+        Chirp::create($validated);
+
+        return redirect(route('home'))->with('success', 'Chirp created!');
+    }
 }

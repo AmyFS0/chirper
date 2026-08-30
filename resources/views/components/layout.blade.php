@@ -48,6 +48,13 @@
     </nav>
 
     <main class="flex-1 w-full max-w-3xl mx-auto px-4 py-8">
+        @if (session('success'))
+            <div class="alert alert-success animate-fade-out" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0112 3.75c3.597 0 6.904 1.464 9.27 3.894m-9.27 0c.663-.14 1.32-.238 1.974-.304m-7.447 7.446c1.45.231 2.92.398 4.4.47" /></svg>
+                <span>{{ session('success') }}</span>
+            </div>
+        @endif
+
         {{ $slot }}
     </main>
 
