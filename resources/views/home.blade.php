@@ -8,28 +8,7 @@
         <div class="divider">Chirps</div>
 
         @forelse ($chirps as $chirp)
-            <div class="card bg-base-100 shadow-sm">
-                <div class="card-body">
-                    <div class="flex items-start gap-3">
-                        <div class="avatar placeholder">
-                            <div class="bg-neutral text-neutral-content w-10 rounded-full">
-                                <span>{{ $chirp->user ? $chirp->user->name[0] : 'A' }}</span>
-                            </div>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <div class="flex items-center gap-2">
-                                <span class="font-medium text-base-content">
-                                    {{ $chirp->user ? $chirp->user->name : 'Anonymous' }}
-                                </span>
-                                <span class="text-base-content/50 text-sm">
-                                    {{ $chirp->created_at->diffForHumans() }}
-                                </span>
-                            </div>
-                            <p class="text-base-content/80 mt-1">{{ $chirp->message }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <x-chirp :chirp="$chirp" />
         @empty
             <div class="card bg-base-100 shadow-sm">
                 <div class="card-body text-center py-12">
