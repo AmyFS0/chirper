@@ -28,4 +28,29 @@ class ChirpController extends Controller
 
         return redirect(route('home'))->with('success', 'Chirp created!');
     }
+
+    public function edit(Chirp $chirp): View
+    {
+        return view('chirps.edit', [
+            'chirp' => $chirp,
+        ]);
+    }
+
+    public function update(Request $request, Chirp $chirp): RedirectResponse
+    {
+        $validated = $request->validate([
+            'message' => 'required|string|max:255',
+        ]);
+
+        $chirp->update($validated);
+
+        return redirect(route('home'))->with('success', 'Chirp updated!');
+    }
+
+    public function destroy(Chirp $chirp): RedirectResponse
+    {
+        $chirp->delete();
+
+        return redirect(route('home'))->with('success', 'Chirp deleted!');
+    }
 }
