@@ -24,13 +24,15 @@ class ChirpController extends Controller
             'message' => 'required|string|max:255',
         ]);
 
-        Chirp::create($validated);
+        $request->user()->chirps()->create($validated);
 
         return redirect(route('home'))->with('success', 'Chirp created!');
     }
 
     public function edit(Chirp $chirp): View
     {
+        $this->authorize('update', $chirp);
+
         return view('chirps.edit', [
             'chirp' => $chirp,
         ]);
@@ -38,6 +40,8 @@ class ChirpController extends Controller
 
     public function update(Request $request, Chirp $chirp): RedirectResponse
     {
+        $this->authorize('update', $chirp);
+
         $validated = $request->validate([
             'message' => 'required|string|max:255',
         ]);
@@ -49,6 +53,8 @@ class ChirpController extends Controller
 
     public function destroy(Chirp $chirp): RedirectResponse
     {
+        $this->authorize('delete', $chirp);
+
         $chirp->delete();
 
         return redirect(route('home'))->with('success', 'Chirp deleted!');

@@ -42,8 +42,31 @@
         </div>
 
         <div class="navbar-end gap-2">
-            <a href="{{ route('login') }}" class="btn btn-ghost">Sign In</a>
-            <a href="{{ route('register') }}" class="btn btn-primary">Sign Up</a>
+            @auth
+                <div class="dropdown dropdown-end">
+                    <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                        <div class="w-8 rounded-full">
+                            <img src="https://api.dicebear.com/7.x/initials/svg?seed={{ Auth::user()->name }}" alt="{{ Auth::user()->name }}" />
+                        </div>
+                    </label>
+                    <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                        <li>
+                            <span class="px-2 py-1 text-sm font-medium text-base-content/70">{{ Auth::user()->name }}</span>
+                        </li>
+                        <li><a class="justify-between px-2 py-1" href="{{ route('home') }}">Home</a></li>
+                        <li><hr class="border-base-300 my-1"></li>
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="btn btn-ghost w-full justify-start">Log Out</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            @else
+                <a href="{{ route('login') }}" class="btn btn-ghost">Sign In</a>
+                <a href="{{ route('register') }}" class="btn btn-primary">Sign Up</a>
+            @endauth
         </div>
     </nav>
 

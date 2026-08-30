@@ -28,15 +28,17 @@
 
                 <p class="text-base-content/80 mt-1 whitespace-pre-wrap">{{ $chirp->message }}</p>
 
-                <div class="flex items-center gap-2 mt-3">
-                    <a href="{{ route('chirps.edit', $chirp) }}" class="btn btn-ghost btn-sm">Edit</a>
+                @can('update', $chirp)
+                    <div class="flex items-center gap-2 mt-3">
+                        <a href="{{ route('chirps.edit', $chirp) }}" class="btn btn-ghost btn-sm">Edit</a>
 
-                    <form method="POST" action="{{ route('chirps.destroy', $chirp) }}" onsubmit="return confirm('Are you sure you want to delete this chirp?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-ghost btn-sm text-error">Delete</button>
-                    </form>
-                </div>
+                        <form method="POST" action="{{ route('chirps.destroy', $chirp) }}" onsubmit="return confirm('Are you sure you want to delete this chirp?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-ghost btn-sm text-error">Delete</button>
+                        </form>
+                    </div>
+                @endcan
             </div>
         </div>
     </div>
